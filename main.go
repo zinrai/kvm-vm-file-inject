@@ -10,11 +10,18 @@ import (
 	"strings"
 )
 
+var (
+	version = "dev"
+	commit  = "none"
+	date    = "unknown"
+)
+
 func main() {
 	var fileFlag = flag.String("file", "", "Path to the file to be placed on the VM (required)")
 	var dirFlag = flag.String("dir", "", "Target directory path on the VM (required)")
 	var stdinFlag = flag.Bool("stdin", false, "Read data from standard input (default if neither -stdin nor -source specified)")
 	var sourceFlag = flag.String("source", "", "Path to local source file to read data from")
+	var versionFlag = flag.Bool("version", false, "Print version information and exit")
 
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage: %s [options] VM_NAME\n\n", os.Args[0])
@@ -30,6 +37,11 @@ func main() {
 	}
 
 	flag.Parse()
+
+	if *versionFlag {
+		fmt.Printf("kvm-vm-file-inject version %s (commit: %s, built: %s)\n", version, commit, date)
+		os.Exit(0)
+	}
 
 	// Check required options
 	if *fileFlag == "" || *dirFlag == "" {

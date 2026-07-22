@@ -18,12 +18,6 @@ A command-line tool to inject files into KVM virtual machines.
 - `libguestfs-tools` package (for `virt-copy-in` command)
 - Sudo privileges (for executing `virsh` and `virt-copy-in`)
 
-## Installation
-
-```bash
-$ go build
-```
-
 ## Usage
 
 ```
